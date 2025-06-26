@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - echo Build started on `date`
+      - echo Starting HTML validation tests
+      
+  build:
+    commands:
+      - echo Build phase started on `date`
+      - echo Testing HTML file...
+      # 检查index.html文件是否存在
+      - test -f index.html || (echo "ERROR: index.html not found!" && exit 1)
+      # 检查HTML基本语法（简单验证）
+      - grep -q "<html>" index.html || (echo "ERROR: Missing <html> tag!" && exit 1)
+      - grep -q "<head>" index.html || (echo "ERROR: Missing <head> tag!" && exit 1)
+      - grep -q "<body>" index.html || (echo "ERROR: Missing <body> tag!" && exit 1)
+      - echo " HTML validation passed!"
+      
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
