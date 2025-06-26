@@ -7,15 +7,16 @@ phases:
   
   build:
     commands:
-      - echo "Starting HTML validation tests"
+      - echo "=== Starting HTML validation tests ==="
+      - pwd
       - ls -la
-      - echo "Checking if index.html exists..."
-      - test -f index.html && echo "✅ index.html found" || (echo "❌ index.html not found" && exit 1)
-      - echo "Checking HTML structure..."
-      - grep -q "<html>" index.html && echo "✅ <html> tag found" || (echo "❌ Missing <html> tag" && exit 1)
-      - grep -q "<head>" index.html && echo "✅ <head> tag found" || (echo "❌ Missing <head> tag" && exit 1)
-      - grep -q "<body>" index.html && echo "✅ <body> tag found" || (echo "❌ Missing <body> tag" && exit 1)
-      - echo "🎉 All tests passed!"
+      - echo "=== Checking if index.html exists ==="
+      - if [ -f "index.html" ]; then echo "✅ index.html found"; else echo "❌ index.html not found" && exit 1; fi
+      - echo "=== Checking HTML basic structure ==="
+      - if grep -q "<html>" index.html; then echo "✅ html tag found"; else echo "❌ Missing html tag" && exit 1; fi
+      - if grep -q "<head>" index.html; then echo "✅ head tag found"; else echo "❌ Missing head tag" && exit 1; fi
+      - if grep -q "<body>" index.html; then echo "✅ body tag found"; else echo "❌ Missing body tag" && exit 1; fi
+      - echo "🎉 All HTML tests passed successfully!"
 
 artifacts:
   files:
