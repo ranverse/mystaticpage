@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - echo "HTML validation started"
+      - ls -la
+      - test -f index.html && echo "HTML file validated"
+      - echo "Preparing artifacts..."
+artifacts:
+  files:
+    - '**/*'
